@@ -18,18 +18,20 @@
     ```bash
     cd ~/Desktop/kappa-course
     git pull origin master
+    # Ensure the docker container can access the files.
+    chmod -R o+rwx ~/Desktop/kappa-course
     ```
 
 3. Start the Kafka broker.
 
     ```bash
-    docker start kafka || docker run -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=0.0.0.0 --env ADVERTISED_PORT=9092 --name kafka spotify/kafka
+    docker start kafka || docker run -d -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=0.0.0.0 --env ADVERTISED_PORT=9092 --name kafka spotify/kafka
     ```
 
 4. Start InfluxDB
 
     ```bash
-    docker start influxdb || docker run -p 8086:8086 --name influxdb influxdb
+    docker start influxdb || docker run -d -p 8086:8086 --name influxdb influxdb
     ```
 
 5. Start Jupyter Notebook and mount the current directory as the "work" folder inside of the container.
@@ -50,8 +52,8 @@
     [I 09:03:49.278 NotebookApp] The Jupyter Notebook is running at:
     [I 09:03:49.278 NotebookApp] http://(howard or 127.0.0.1):8888/?token=TOKEN
     [I 09:03:49.278 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-    [C 09:03:49.282 NotebookApp] 
-        
+    [C 09:03:49.282 NotebookApp]
+
         To access the notebook, open this file in a browser:
             file:///home/jovyan/.local/share/jupyter/runtime/nbserver-7-open.html
         Or copy and paste one of these URLs:
@@ -60,7 +62,7 @@
 
     Open the http url of the command in your browser, using the `127.0.0.1` hostname. Don't forget to remove the brackets and the other hostname from the url.
 
-6. In the Jupyter web ui, open the `kappa-introduction` notebook in the `work` folder and follow the instructions there.
+6. In the Jupyter web ui, open the `introduction` notebook in the `work` folder and follow the instructions there.
 
 ## Appendix
 
